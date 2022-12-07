@@ -39,4 +39,30 @@ function Circle(radius) {
 
 //이렇게 하면 getArea 메서드가 중복 생성된다.
 //같은 함수를 바라보 것이 아니라, 객체 생성을 할때마다 해당 메서드가 똑같이 생성된다.
+const circle1 = new Circle(1);
+const circle2 = new Circle(2);
+
+console.log(circle1.getArea === circle2.getArea); // false
+```
+
+그래서 아래처럼 바꿀 수 있다.
+
+```javascript
+function Circle(radius) {
+  this.radius = radius;
+}
+
+//미리 만들어 놓은 함수를 공유해서 사용할 수 있도록 프로토타입에 추가한다.
+// 프로토타입 Circle생성자 함수의 prototype 프로퍼티에 바인딩되어 있다.
+
+Circle.prototype.getArea = function () {
+  return Math.Pi * this.radius ** 2;
+};
+
+//모든 Circle 생성자 함수로 만든 인스턴스들은 부모 객체 역할을 하는 프로토타입 Circle.prototype으로부터 getArea 메서드를 상속받는다.
+//즉, Circle 생성자 함수가 생성하는 모든 인스턴스는 하나의 getArea 메서드를 공유한다.
+const circle1 = new Circle(1);
+const circle2 = new Circle(2);
+
+console.log(circle1.getArea === circle2.getArea); //true
 ```
