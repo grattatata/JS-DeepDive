@@ -29,11 +29,14 @@
 
 - 자바스크립트는 프로토타입을 기반으로 상속을 구현했고, 불필요한 중복을 제거했다.
 
-```
+```javascript
 function Circle(radius) {
   this.radius = radius;
   this.getArea = function () {
     return Math.PI * this.radius ** 2;
   };
 }
+
+//이렇게 하면 getArea 메서드가 중복 생성된다.
+//같은 함수를 바라보 것이 아니라, 객체 생성을 할때마다 해당 메서드가 똑같이 생성된다.
 ```
